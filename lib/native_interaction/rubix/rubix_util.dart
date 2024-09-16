@@ -15,7 +15,7 @@ final String _secret = Config().jwtAuthSecret;
 final String _issuer = 'Fexr Sky';
 final String _portMapIndex = 'peer_id_index';
 
-enum _RubixTokenType { challengeToken, accessToken, externalAccessToken }
+enum _RubixTokenType { challengeToken, accessToken, externalAccessToken, orgAccessToken }
 
 String _getClaimType(JwtClaim claim) {
   return claim.toJson()['type'];
@@ -260,6 +260,65 @@ class ExternalAccessTokenJWTClaim extends JwtClaim {
 
   String getDID() {
     return toJson()['did'];
+  }
+}
+
+class OrgAccessTokenJWTClaim extends JwtClaim {
+  OrgAccessTokenJWTClaim({
+    required String did,
+    required DateTime expiry,
+    required String peerId,
+    required String orgName,
+  }) : super(
+          issuer: _issuer,
+          subject: orgName,
+          maxAge: Duration(days: 30),
+          otherClaims: {
+            'type': _RubixTokenType.orgAccessToken.toString(),
+            'peerId': peerId,
+            'did': did,
+          },
+        );
+
+  factory OrgAccessTokenJWTClaim.fromJWTClaim(JwtClaim claim) {
+    return OrgAccessTokenJWTClaim(
+      orgName: claim.subject!,
+      expiry: claim.expiry!,
+      peerId: claim.toJson()['peerId'],
+      did: claim.toJson()['did'],
+    );
+  }
+
+  factory OrgAccessTokenJWTClaim.fromToken(String token) {
+    return OrgAccessTokenJWTClaim.fromJWTClaim(
+        verifyJwtHS256Signature(token, _secret));
+  }
+
+  String getOrgName() {
+    return subject!;
+  }
+
+  String getPeerId() {
+    return toJson()['peerId'];
+  }
+
+  String getDID() {
+    return toJson()['did'];
+  }
+}
+
+class OrgAccessToken {
+  static final int _accessTokenMaxAge = 30; // days
+  static Token get(
+      {required String did, required String peerId, required String orgName}) {
+    final JwtClaim claimSet = OrgAccessTokenJWTClaim(
+      did: did,
+      expiry: DateTime.now().add(Duration(days: _accessTokenMaxAge)),
+      peerId: peerId,
+      orgName: orgName,
+    );
+
+    return Token(issueJwtHS256(claimSet, _secret), claimSet.expiry!);
   }
 }
 

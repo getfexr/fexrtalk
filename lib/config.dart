@@ -220,4 +220,7 @@ class Config {
   final rubixPeerIdPortMap = ConfigItem(
       envVar: 'RUBIX_PEER_ID_PORT_MAP',
       validators: [RequiredValidator()]).getMap<String, int>();
+
+  final skyUrl = ConfigItem(envVar: 'SKY_URL',
+  validators: [RequiredValidator()]).getString();
 }

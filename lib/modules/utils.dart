@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:grpc/grpc.dart';
 import 'package:sky/native_interaction/rubix/rubix_platform_calls.dart';
 
@@ -65,4 +67,9 @@ GrpcError getGrpcError(Object e, StackTrace stackTrace, String unknownMessage) {
   } else {
     return GrpcError.unknown(unknownMessage);
   }
+}
+
+int generateRandomNumber(int min, int max) {
+  var random = Random();
+  return min + random.nextInt(max - min);
 }

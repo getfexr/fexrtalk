@@ -20,6 +20,11 @@ class RubixExternalClient extends $grpc.Client {
           '/protos.RubixExternal/ApproveAuthRequest',
           ($0.AuthRequest value) => value.writeToBuffer(),
           ($core.List<$core.int> value) => $1.Empty.fromBuffer(value));
+  static final _$approveOrgAuthRequest =
+      $grpc.ClientMethod<$0.OrgAuthRequest, $0.OrgStatus>(
+          '/protos.RubixExternal/ApproveOrgAuthRequest',
+          ($0.OrgAuthRequest value) => value.writeToBuffer(),
+          ($core.List<$core.int> value) => $0.OrgStatus.fromBuffer(value));
   static final _$streamTransactionRequest =
       $grpc.ClientMethod<$1.Empty, $0.TxnRequest>(
           '/protos.RubixExternal/StreamTransactionRequest',
@@ -34,6 +39,12 @@ class RubixExternalClient extends $grpc.Client {
   $grpc.ResponseFuture<$1.Empty> approveAuthRequest($0.AuthRequest request,
       {$grpc.CallOptions? options}) {
     return $createUnaryCall(_$approveAuthRequest, request, options: options);
+  }
+
+  $grpc.ResponseFuture<$0.OrgStatus> approveOrgAuthRequest(
+      $0.OrgAuthRequest request,
+      {$grpc.CallOptions? options}) {
+    return $createUnaryCall(_$approveOrgAuthRequest, request, options: options);
   }
 
   $grpc.ResponseStream<$0.TxnRequest> streamTransactionRequest($1.Empty request,
@@ -55,6 +66,13 @@ abstract class RubixExternalServiceBase extends $grpc.Service {
         false,
         ($core.List<$core.int> value) => $0.AuthRequest.fromBuffer(value),
         ($1.Empty value) => value.writeToBuffer()));
+    $addMethod($grpc.ServiceMethod<$0.OrgAuthRequest, $0.OrgStatus>(
+        'ApproveOrgAuthRequest',
+        approveOrgAuthRequest_Pre,
+        false,
+        false,
+        ($core.List<$core.int> value) => $0.OrgAuthRequest.fromBuffer(value),
+        ($0.OrgStatus value) => value.writeToBuffer()));
     $addMethod($grpc.ServiceMethod<$1.Empty, $0.TxnRequest>(
         'StreamTransactionRequest',
         streamTransactionRequest_Pre,
@@ -69,6 +87,11 @@ abstract class RubixExternalServiceBase extends $grpc.Service {
     return approveAuthRequest(call, await request);
   }
 
+  $async.Future<$0.OrgStatus> approveOrgAuthRequest_Pre(
+      $grpc.ServiceCall call, $async.Future<$0.OrgAuthRequest> request) async {
+    return approveOrgAuthRequest(call, await request);
+  }
+
   $async.Stream<$0.TxnRequest> streamTransactionRequest_Pre(
       $grpc.ServiceCall call, $async.Future<$1.Empty> request) async* {
     yield* streamTransactionRequest(call, await request);
@@ -76,6 +99,8 @@ abstract class RubixExternalServiceBase extends $grpc.Service {
 
   $async.Future<$1.Empty> approveAuthRequest(
       $grpc.ServiceCall call, $0.AuthRequest request);
+  $async.Future<$0.OrgStatus> approveOrgAuthRequest(
+      $grpc.ServiceCall call, $0.OrgAuthRequest request);
   $async.Stream<$0.TxnRequest> streamTransactionRequest(
       $grpc.ServiceCall call, $1.Empty request);
 }

@@ -18,6 +18,28 @@ const AuthRequest$json = const {
 
 /// Descriptor for `AuthRequest`. Decode as a `google.protobuf.DescriptorProto`.
 final $typed_data.Uint8List authRequestDescriptor = $convert.base64Decode('CgtBdXRoUmVxdWVzdBISCgR1dWlkGAEgASgJUgR1dWlk');
+@$core.Deprecated('Use orgAuthRequestDescriptor instead')
+const OrgAuthRequest$json = const {
+  '1': 'OrgAuthRequest',
+  '2': const [
+    const {'1': 'orgName', '3': 1, '4': 1, '5': 9, '10': 'orgName'},
+    const {'1': 'callBackUrl', '3': 2, '4': 1, '5': 9, '10': 'callBackUrl'},
+    const {'1': 'sessionId', '3': 3, '4': 1, '5': 9, '10': 'sessionId'},
+  ],
+};
+
+/// Descriptor for `OrgAuthRequest`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List orgAuthRequestDescriptor = $convert.base64Decode('Cg5PcmdBdXRoUmVxdWVzdBIYCgdvcmdOYW1lGAEgASgJUgdvcmdOYW1lEiAKC2NhbGxCYWNrVXJsGAIgASgJUgtjYWxsQmFja1VybBIcCglzZXNzaW9uSWQYAyABKAlSCXNlc3Npb25JZA==');
+@$core.Deprecated('Use orgStatusDescriptor instead')
+const OrgStatus$json = const {
+  '1': 'OrgStatus',
+  '2': const [
+    const {'1': 'status', '3': 1, '4': 1, '5': 8, '10': 'status'},
+  ],
+};
+
+/// Descriptor for `OrgStatus`. Decode as a `google.protobuf.DescriptorProto`.
+final $typed_data.Uint8List orgStatusDescriptor = $convert.base64Decode('CglPcmdTdGF0dXMSFgoGc3RhdHVzGAEgASgIUgZzdGF0dXM=');
 @$core.Deprecated('Use txnRequestDescriptor instead')
 const TxnRequest$json = const {
   '1': 'TxnRequest',
